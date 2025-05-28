@@ -21,3 +21,16 @@ app.post('/login',(req,res)=>{
 app.listen(3000,()=>{
     console.log('servidor corriendo en http://localhost:3000');
 });
+app.post('/registro', (req, res) => {
+    const { usuario, contrasena } = req.body;
+    const sql = 'INSERT INTO usuarios (usuario, contrasena) VALUES (?, ?)';
+
+    db.query(sql, [usuario, contrasena], (err, resultado) => {
+        if (err) {
+            console.error(err);
+            res.send('Error al registrar el usuario');
+        } else {
+            res.send('Registro exitoso. <a href="login.html">Iniciar sesión</a>');
+        }
+    });
+});
